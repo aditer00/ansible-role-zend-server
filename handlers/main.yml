@@ -1,0 +1,12 @@
+---
+- name: (Handler) Systemd daemon-reload
+  systemd:
+    daemon_reload: true
+
+- name: (Handler) Stop Zend Server
+  command:
+    cmd: /usr/local/zend/bin/zendctl.sh stop
+
+- name: (Handler) Restart Zend Server
+  command:
+    cmd: /usr/local/zend/bin/zendctl.sh restart

@@ -1,0 +1,23 @@
+---
+- name: Install pre-requirements packages
+  yum:
+    name: autoconf, make, gcc
+    state: latest
+    update_cache: true
+
+- name: Register Variable for extension_dir
+  shell:
+    cmd: '{{ zs_php_command }} --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"'
+  register: extension_dir
+
+- name: Install pre-requirements packages for mcrypt extension.
+  include_tasks: "{{ role_path }}/tasks/extension/mcrypt.yml"
+  when: zs_pecl_extensions is search("mcrypt")
+
+- name: Install PECL libaries.
+  shell: "echo -ne '\n' | {{ zs_pecl_install_command }} {{ item }}"
+  register: pecl_result
+  changed_when: pecl_result is succeeded
+  failed_when: "not (('already installed' in pecl_result.stdout) or ('install ok:' in pecl_result.stdout))"
+  with_items: "{{ zs_pecl_extensions }}"
+  notify: (Handler) Restart Zend Server

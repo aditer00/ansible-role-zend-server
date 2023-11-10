@@ -1,0 +1,19 @@
+---
+# Specify what type of Web Server you want to use.
+# Options are 'apache' 'apache-php-fpm' or 'nginx'.
+# Default is 'nginx'.
+zs_web_server: nginx
+
+# If you want to install pecl extension, make it 'true'.
+# Default is 'false'.
+zs_pecl_install_extension: false
+
+# Specify command for PHP and PECL.
+zs_php_command: "/usr/local/zend/bin/php"
+zs_pecl_install_command: "/usr/local/zend/bin/pecl install"
+
+# Add extensions to this list to have them installed with this role
+zs_pecl_extensions: []
+#  - mcrypt
+#  - pdo_sqlsrv
+#  - sqlsrv

@@ -1,0 +1,15 @@
+---
+- name: Set up Zend Server on RedHat family
+  include_tasks: "{{ role_path }}/tasks/setup-RedHat.yml"
+  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
+  tags: zs_redhat
+
+- name: Set up Zend Server on Debian family
+  include_tasks: "{{ role_path }}/tasks/setup-Debian.yml"
+  when: ansible_os_family == 'Debian'
+  tags: zs_debian
+
+- name: Set up PECL Extension on Zend Server
+  include_tasks: "{{ role_path }}/tasks/PHP-extension.yml"
+  when: zs_pecl_install_extension | bool
+  tags: zs_extension

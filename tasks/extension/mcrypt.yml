@@ -1,0 +1,16 @@
+---
+- name: Enable EPEL repository 
+  import_role:
+    name: geerlingguy.repo-epel
+
+- name: Install library mcrypt
+  yum:
+    name: libmcrypt, libmcrypt-devel
+    state: latest
+    update_cache: true
+
+- name: "Create mcrypt.ini file"
+  copy:
+    dest: "{{ extension_dir.stdout }}/mcrypt.ini"
+    content: |
+      extension=mcrypt.so

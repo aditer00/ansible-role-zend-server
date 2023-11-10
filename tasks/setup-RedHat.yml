@@ -1,0 +1,29 @@
+---
+- name: Set up repository for Zend Server (1/2)
+  yum_repository:
+    name: Zend
+    description: zend-server
+    file: zend
+    baseurl: "{{ zs_default_repository_redhat }}"
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: "{{ zs_default_signing_key_pgp }}"
+    state: present
+
+- name: Set up repository for Zend Server (2/2)
+  yum_repository:
+    name: Zend_noarch
+    description: zend-server - noarch
+    file: zend
+    baseurl: "{{ zs_default_repository_redhat_noarch }}"
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: "{{ zs_default_signing_key_pgp }}"
+    state: present
+
+- name: Install Zend Server on {{ ansible_os_family }} for {{ zs_web_server | capitalize }}
+  yum:
+    name: zend-server-{{ zs_web_server }}
+    state: latest
+    update_cache: true
+  notify: (Handler) Restart Zend Server

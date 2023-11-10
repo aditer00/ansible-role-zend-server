@@ -1,0 +1,7 @@
+---
+# Default Zend Server signing key
+zs_default_signing_key_pgp: http://repos.zend.com/zend.key
+
+# Default Zend Server repositories for RHEL/CentOS/Rocky/Alma 8.x
+zs_default_repository_redhat: http://repos.zend.com/zend-server/2021.3/rpm_centos8/$basearch
+zs_default_repository_redhat_noarch: http://repos.zend.com/zend-server/2021.3/rpm_centos8/noarch
